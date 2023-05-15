@@ -1,0 +1,65 @@
+package SqlFirstProject;
+
+
+	 import java.sql. Connection;
+	 import java.sql.DriverManager;
+	 import java.sql. ResultSet;
+	 import java.sql.SQLException;
+	import java.sql.Statement;
+ import java.util.ArrayList;
+	import java.util.List;
+	
+	
+	 public class DAO 
+	 {
+	
+	
+	 List<Student> list=new ArrayList<>();
+	
+	public void remove(int id) throws SQLException
+	{
+	String url="jdbc:mysql://localhost:3306/test1l";
+	String username="root";
+	String password="root";
+	Connection connection = DriverManager.getConnection (url, username, password);
+	Statement statement = connection.createStatement();
+	String query="delete from student where id="+id;
+	statement.executeUpdate (query);
+	
+	statement.close();
+	connection.close();
+	}
+	public void add(int id, String name, int marks) throws SQLException
+	{
+	String url="jdbc:mysql://localhost:3306/test11";
+	String username="root";
+	String password="root";
+	Connection connection = DriverManager.getConnection(url, username,password);
+	Statement statement = connection. createStatement ();
+	String query="INSERT INTO 'student' ('id', 'name','marks')VALUES("+id+","+name+","+marks+")";
+	statement. executeUpdate (query);
+	
+	statement.close();
+	connection.close();
+	
+	Student student=new Student(id, name, marks);
+	list.add(student);
+	}
+	
+	public void read() throws SQLException
+	{
+	String uri="jdbc:mysql://localhost:3306/testll";
+	String username="root";
+	
+	String password= "root";
+	Connection connection = DriverManager.getConnection(uri,username,password);
+	Statement statement = connection. createStatement();
+	String query= "SELECT * FROM student";
+	ResultSet rs = statement. executeQuery (query);
+	while(rs.next())
+	System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getInt (3));
+	
+	statement. close();
+	connection. close ();
+}
+	 }
